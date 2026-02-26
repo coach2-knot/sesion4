@@ -1,0 +1,78 @@
+# ============================================================================
+# Selenium CI Pipeline - Knot Academy x Accenture
+# Sesion 4: CI/CD + GitHub Actions
+#
+# Este workflow ejecuta los tests de Selenium automaticamente en cada push
+# y pull request. Genera reportes y los publica como artifacts.
+# ============================================================================
+
+name: Selenium CI
+
+# ¿Cuándo se ejecuta?
+# - En cada push a main o develop
+# - En cada pull request hacia main
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ========================================================================
+  # Job: build-and-test
+  # Ejecuta los tests de Selenium en Chrome headless
+  # ========================================================================
+  build-and-test:
+    runs-on: ubuntu-latest    # Maquina virtual Ubuntu en la nube de GitHub
+
+    steps:
+      # Paso 1: Descargar el codigo del repositorio
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Paso 2: Instalar Java 17 (Temurin/AdoptOpenJDK)
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # Paso 3: Cache de Maven (acelera builds posteriores)
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Paso 4: Instalar Chrome (ubuntu-latest ya lo incluye, pero por si acaso)
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      # Paso 5: Ejecutar tests Selenium en modo headless
+      - name: Run Selenium tests
+        run: mvn -B clean test -Dbrowser=chrome -Dheadless=true
+        # -B = batch mode (sin input interactivo)
+        # -Dbrowser=chrome = usa ChromeDriver
+        # -Dheadless=true = sin ventana visible (obligatorio en CI)
+
+      # Paso 6: Subir reportes de Surefire (siempre, incluso si hay fallos)
+      - name: Upload Surefire reports
+        uses: actions/upload-artifact@v4
+        if: always()    # "always()" = sube aunque los tests fallen
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+          retention-days: 14
+
+      # Paso 7: Subir resultados de Allure (para generar dashboard visual)
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results
+          path: target/allure-results/
+          retention-days: 14

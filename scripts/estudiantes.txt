@@ -1,0 +1,48 @@
+# ============================================================================
+# Lista de estudiantes por grupo
+# Completa con los usernames de GitHub de cada estudiante.
+#
+# Cómo obtener los usernames:
+#   Pegar este bloque en el chat de Teams ANTES de la sesión:
+#
+#     📋 TAREA PREVIA: Necesito su username de GitHub
+#     1. Ir a https://github.com
+#     2. Si no tienen cuenta: crear una (es gratis)
+#     3. Enviarme su username por chat privado
+#     Ejemplo: mi username es "aramirez-knot"
+#
+# Luego completa esta lista y ejecuta:
+#   ./scripts/agregar-por-lista.sh TU_USUARIO/TU_REPO scripts/estudiantes.txt
+# ============================================================================
+
+# Grupo 1 → feature/ci-grupo-1
+# estudiante1_username
+# estudiante2_username
+
+# Grupo 2 → feature/ci-grupo-2
+# estudiante3_username
+# estudiante4_username
+
+# Grupo 3 → feature/ci-grupo-3
+# estudiante5_username
+# estudiante6_username
+
+# Grupo 4 → feature/ci-grupo-4
+# estudiante7_username
+# estudiante8_username
+
+# Grupo 5 → feature/ci-grupo-5
+# estudiante9_username
+# estudiante10_username
+
+# Grupo 6 → feature/ci-grupo-6
+# estudiante11_username
+# estudiante12_username
+
+# Grupo 7 → feature/ci-grupo-7
+# estudiante13_username
+# estudiante14_username
+
+# Grupo 8 (Trío) → feature/ci-grupo-8
+# estudiante15_username
+# estudiante16_username (si llega alguien extra)
