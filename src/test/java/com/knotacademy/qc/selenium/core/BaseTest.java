@@ -13,7 +13,7 @@ public abstract class BaseTest {
 
     @BeforeEach
     void setUp() {
-        String browser = resolveProperty("browser", "chrome");
+        String browser = resolveProperty("browser", "firefox");
         boolean headless = Boolean.parseBoolean(resolveProperty("headless", "false"));
         long timeoutSeconds = Long.parseLong(resolveProperty("timeout.seconds", "10"));
 
