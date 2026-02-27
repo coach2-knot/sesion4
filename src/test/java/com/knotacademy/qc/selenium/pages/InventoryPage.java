@@ -47,8 +47,12 @@ public class InventoryPage extends BasePage {
         click(cartLink);
     }
 
-    /** Alias for openCart — uses business-friendly name */
+
     public void goToCart() {
         click(cartLink);
+    }
+
+    public void removeBackpack() {
+        removeBackpackButton.click();
     }
 }

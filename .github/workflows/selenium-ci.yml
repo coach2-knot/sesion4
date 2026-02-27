@@ -13,7 +13,10 @@ name: Selenium CI
 # - En cada pull request hacia main
 on:
   push:
-    branches: [main, develop]
+    branches:
+    - main
+    - develop
+    -'feature/*'
   pull_request:
     branches: [main]
 
