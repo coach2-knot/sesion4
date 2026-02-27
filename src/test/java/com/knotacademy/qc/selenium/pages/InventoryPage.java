@@ -35,12 +35,18 @@ public class InventoryPage extends BasePage {
     }
 
     /**
-     * Espera a que el badge del carrito muestre el valor esperado.
-     * En CI (GitHub Actions) la UI tarda mas en actualizar el DOM.
+     * Espera a que el badge del carrito aparezca y muestre el valor esperado.
+     * El badge NO existe en el DOM cuando el carrito esta vacio,
+     * por eso primero esperamos visibilidad y luego el texto.
      */
     private void waitForCartBadge(int expectedCount) {
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(
-            cartBadge, String.valueOf(expectedCount)));
+        String expected = String.valueOf(expectedCount);
+        wait.until(d -> {
+            List<WebElement> badges = d.findElements(cartBadge);
+            if (badges.isEmpty()) return false;
+            String text = badges.get(0).getText();
+            return expected.equals(text != null ? text.trim() : "");
+        });
     }
 
     public int getCartBadgeCount() {
