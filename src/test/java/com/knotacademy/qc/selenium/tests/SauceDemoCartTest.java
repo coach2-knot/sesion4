@@ -78,7 +78,7 @@ public class SauceDemoCartTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     void shouldShowProductInCartPage() {
         // Act
-        inventoryPage.addBackpack();
+        //inventoryPage.addBackpack();
         inventoryPage.goToCart();
 
         // Assert
