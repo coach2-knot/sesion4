@@ -85,4 +85,17 @@ public class SauceDemoLoginTest extends BaseTest {
         assertTrue(errorMessage.contains("locked out"),
             "Debe indicar que el usuario esta bloqueado");
     }
+
+    @Test
+void loginSencillo() {
+    // 1. Instanciar la página que acabas de crear
+    LoginPage login = new LoginPage(driver, wait);
+    
+    // 2. Usar sus métodos
+    login.open("https://www.saucedemo.com/");
+    login.login("standard_user", "secret_sauce");
+    
+    // 3. Verificar que entramos (la URL cambia)
+    assertTrue(driver.getCurrentUrl().contains("inventory"));
+}
 }
