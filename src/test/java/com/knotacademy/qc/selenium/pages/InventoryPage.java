@@ -10,43 +10,44 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class InventoryPage extends BasePage {
     private final By pageTitle = By.className("title");
     private final By addBackpackButton = By.id("add-to-cart-sauce-labs-backpack");
+    private final By removeBackpackButton = By.id("remove-sauce-labs-backpack");
     private final By addBikeLightButton = By.id("add-to-cart-sauce-labs-bike-light");
-    private final By cartBadge = By.cssSelector(".shopping_cart_link .shopping_cart_badge");
+    private final By removeBikeLightButton = By.id("remove-sauce-labs-bike-light");
+    private final By cartBadge = By.cssSelector(".shopping_cart_badge");
     private final By cartLink = By.className("shopping_cart_link");
 
     public InventoryPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
     }
 
+    /**
+     * Espera a que la pagina de inventario cargue completamente.
+     * Llamar despues del login para asegurar que React monto los event listeners.
+     */
+    public void waitForPageLoad() {
+        visible(pageTitle);
+    }
+
     public boolean isLoaded() {
         return "Products".equals(text(pageTitle));
     }
 
+    /**
+     * Agrega Backpack al carrito.
+     * Espera a que el boton cambie de "Add to cart" a "Remove" como confirmacion
+     * de que React proceso el click (mas confiable que el badge en CI).
+     */
     public void addBackpack() {
-        int currentCount = getCartBadgeCount();
-        click(addBackpackButton);
-        waitForCartBadge(currentCount + 1);
-    }
-
-    public void addBikeLight() {
-        int currentCount = getCartBadgeCount();
-        click(addBikeLightButton);
-        waitForCartBadge(currentCount + 1);
+        clickable(addBackpackButton).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeBackpackButton));
     }
 
     /**
-     * Espera a que el badge del carrito aparezca y muestre el valor esperado.
-     * El badge NO existe en el DOM cuando el carrito esta vacio,
-     * por eso primero esperamos visibilidad y luego el texto.
+     * Agrega Bike Light al carrito.
      */
-    private void waitForCartBadge(int expectedCount) {
-        String expected = String.valueOf(expectedCount);
-        wait.until(d -> {
-            List<WebElement> badges = d.findElements(cartBadge);
-            if (badges.isEmpty()) return false;
-            String text = badges.get(0).getText();
-            return expected.equals(text != null ? text.trim() : "");
-        });
+    public void addBikeLight() {
+        clickable(addBikeLightButton).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(removeBikeLightButton));
     }
 
     public int getCartBadgeCount() {

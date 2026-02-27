@@ -41,6 +41,7 @@ public class SauceDemoCartTest extends BaseTest {
             requiredProperty("username"),
             requiredProperty("password")
         );
+        inventoryPage.waitForPageLoad();
     }
 
      @Test

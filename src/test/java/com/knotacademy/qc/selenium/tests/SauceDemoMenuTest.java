@@ -1,6 +1,7 @@
 package com.knotacademy.qc.selenium.tests;
 
 import com.knotacademy.qc.selenium.core.BaseTest;
+import com.knotacademy.qc.selenium.pages.InventoryPage;
 import com.knotacademy.qc.selenium.pages.LoginPage;
 import com.knotacademy.qc.selenium.pages.MenuPage;
 
@@ -31,12 +32,14 @@ public class SauceDemoMenuTest extends BaseTest {
     void loginAndNavigate() {
         loginPage = new LoginPage(driver, wait);
         menuPage = new MenuPage(driver, wait);
+        InventoryPage inventoryPage = new InventoryPage(driver, wait);
 
         driver.get(requiredProperty("base.url"));
         loginPage.login(
                 requiredProperty("username"),
                 requiredProperty("password")
         );
+        inventoryPage.waitForPageLoad();
     }
 
     @Test
