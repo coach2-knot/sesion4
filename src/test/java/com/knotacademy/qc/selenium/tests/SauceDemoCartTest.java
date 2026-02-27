@@ -33,6 +33,7 @@ public class SauceDemoCartTest extends BaseTest {
     @BeforeEach
     void loginAndNavigate() {
         loginPage = new LoginPage(driver, wait);
+        
         inventoryPage = new InventoryPage(driver, wait);
         cartPage = new CartPage(driver, wait);
 
