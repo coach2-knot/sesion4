@@ -73,6 +73,22 @@ public class SauceDemoCartTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Agregar tres productos al carrito")
+    @Description("Verifica que se pueden agregar multiples productos y el badge refleja la cantidad")
+    @Severity(SeverityLevel.NORMAL)
+    void shouldAddThreeProductsToCart() {
+        // Act
+        inventoryPage.addBackpack();
+        inventoryPage.addBikeLight();
+        inventoryPage.addBoltTShirt();
+
+        // Assert
+        int cartCount = inventoryPage.getCartBadgeCount();
+        assertEquals(3, cartCount,
+                "El badge del carrito debe mostrar 3 despues de agregar dos productos");
+    }
+
+    @Test
     @DisplayName("Verificar producto en pagina del carrito")
     @Description("Agrega Backpack, navega al carrito y verifica que el producto aparece")
     @Severity(SeverityLevel.CRITICAL)

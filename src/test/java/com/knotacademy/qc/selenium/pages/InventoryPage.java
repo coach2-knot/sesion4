@@ -10,6 +10,7 @@ public class InventoryPage extends BasePage {
     private final By pageTitle = By.className("title");
     private final By addBackpackButton = By.id("add-to-cart-sauce-labs-backpack");
     private final By addBikeLightButton = By.id("add-to-cart-sauce-labs-bike-light");
+    private final By addBoltTShirtButton = By.id("add-to-cart-sauce-labs-bolt-t-shirt");
     private final By cartBadge = By.cssSelector(".shopping_cart_link .shopping_cart_badge");
     private final By cartLink = By.className("shopping_cart_link");
 
@@ -27,6 +28,10 @@ public class InventoryPage extends BasePage {
 
     public void addBikeLight() {
         click(addBikeLightButton);
+    }
+
+    public void addBoltTShirt() {
+        click(addBoltTShirtButton);
     }
 
     public int getCartBadgeCount() {
