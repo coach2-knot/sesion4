@@ -85,4 +85,22 @@ public class SauceDemoLoginTest extends BaseTest {
         assertTrue(errorMessage.contains("locked out"),
             "Debe indicar que el usuario esta bloqueado");
     }
+
+    @Test
+    @DisplayName("Login exitoso con usuario problem_user")
+    @Description("Verifica que problem_user puede iniciar sesion correctamente")
+    @Severity(SeverityLevel.NORMAL)
+    void shouldLoginSuccessfullyWithProblemUser() {
+        // Arrange
+        LoginPage loginPage = new LoginPage(driver, wait);
+
+        // Act
+        driver.get(requiredProperty("base.url"));
+        loginPage.login("problem_user", "secret_sauce");
+
+        // Assert
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue(currentUrl.contains("inventory"),
+            "Despues del login con problem_user, la URL debe contener 'inventory'. URL actual: " + currentUrl);
+    }
 }
