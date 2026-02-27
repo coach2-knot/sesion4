@@ -83,7 +83,7 @@ public class SauceDemoCartTest extends BaseTest {
 
         // Assert
         int itemCount = cartPage.getItemCount();
-        assertTrue(itemCount > 0,
+        assertTrue(itemCount > 6,
             "El carrito debe tener al menos 1 item despues de agregar Backpack");
     }
 }
