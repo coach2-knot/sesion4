@@ -34,11 +34,12 @@ public class InventoryPage extends BasePage {
 
     /**
      * Agrega Backpack al carrito.
-     * Espera a que el boton cambie de "Add to cart" a "Remove" como confirmacion
-     * de que React proceso el click (mas confiable que el badge en CI).
+     * Usa JavaScript click porque en Chrome 145 headless (GitHub Actions)
+     * el click nativo de Selenium no siempre dispara el event handler de React.
+     * Espera a que el boton cambie de "Add to cart" a "Remove" como confirmacion.
      */
     public void addBackpack() {
-        clickable(addBackpackButton).click();
+        jsClick(addBackpackButton);
         wait.until(ExpectedConditions.visibilityOfElementLocated(removeBackpackButton));
     }
 
@@ -46,7 +47,7 @@ public class InventoryPage extends BasePage {
      * Agrega Bike Light al carrito.
      */
     public void addBikeLight() {
-        clickable(addBikeLightButton).click();
+        jsClick(addBikeLightButton);
         wait.until(ExpectedConditions.visibilityOfElementLocated(removeBikeLightButton));
     }
 
