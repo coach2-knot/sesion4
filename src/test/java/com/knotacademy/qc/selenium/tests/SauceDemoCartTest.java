@@ -79,6 +79,8 @@ public class SauceDemoCartTest extends BaseTest {
     void shouldShowProductInCartPage() {
         // Act
         inventoryPage.addBackpack();
+
+        //agregado backpack
         inventoryPage.goToCart();
 
         // Assert
