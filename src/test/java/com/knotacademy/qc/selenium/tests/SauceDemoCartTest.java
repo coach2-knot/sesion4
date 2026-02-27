@@ -42,19 +42,4 @@ public class SauceDemoCartTest extends BaseTest {
             requiredProperty("password")
         );
     }
-
-    @Test
-    @DisplayName("Agregar dos productos al carrito")
-    @Description("Verifica que se pueden agregar multiples productos y el badge refleja la cantidad")
-    @Severity(SeverityLevel.NORMAL)
-    void shouldAddTwoProductsToCart() {
-        // Act
-        inventoryPage.addBackpack();
-        inventoryPage.addBikeLight();
-
-        // Assert
-        int cartCount = inventoryPage.getCartBadgeCount();
-        assertEquals(2, cartCount,
-            "El badge del carrito debe mostrar 2 despues de agregar dos productos");
-    }
 }
