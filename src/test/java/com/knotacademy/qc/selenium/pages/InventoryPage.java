@@ -4,6 +4,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class InventoryPage extends BasePage {
@@ -22,11 +23,24 @@ public class InventoryPage extends BasePage {
     }
 
     public void addBackpack() {
+        int currentCount = getCartBadgeCount();
         click(addBackpackButton);
+        waitForCartBadge(currentCount + 1);
     }
 
     public void addBikeLight() {
+        int currentCount = getCartBadgeCount();
         click(addBikeLightButton);
+        waitForCartBadge(currentCount + 1);
+    }
+
+    /**
+     * Espera a que el badge del carrito muestre el valor esperado.
+     * En CI (GitHub Actions) la UI tarda mas en actualizar el DOM.
+     */
+    private void waitForCartBadge(int expectedCount) {
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+            cartBadge, String.valueOf(expectedCount)));
     }
 
     public int getCartBadgeCount() {

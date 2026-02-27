@@ -17,6 +17,8 @@ public class CartPage extends BasePage {
     }
 
     public int getItemsCount() {
+        // Esperar a que la pagina del carrito cargue antes de contar items
+        visible(pageTitle);
         return driver.findElements(cartItems).size();
     }
 
