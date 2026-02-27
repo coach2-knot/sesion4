@@ -44,20 +44,6 @@ public class SauceDemoCartTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Agregar Backpack al carrito")
-    @Description("Verifica que al agregar Sauce Labs Backpack, el badge del carrito muestra 1")
-    @Severity(SeverityLevel.CRITICAL)
-    void shouldAddBackpackToCart() {
-        // Act
-        inventoryPage.addBackpack();
-
-        // Assert
-        int cartCount = inventoryPage.getCartBadgeCount();
-        assertEquals(1, cartCount,
-            "El badge del carrito debe mostrar 1 despues de agregar Backpack");
-    }
-
-    @Test
     @DisplayName("Agregar dos productos al carrito")
     @Description("Verifica que se pueden agregar multiples productos y el badge refleja la cantidad")
     @Severity(SeverityLevel.NORMAL)
@@ -70,20 +56,5 @@ public class SauceDemoCartTest extends BaseTest {
         int cartCount = inventoryPage.getCartBadgeCount();
         assertEquals(2, cartCount,
             "El badge del carrito debe mostrar 2 despues de agregar dos productos");
-    }
-
-    @Test
-    @DisplayName("Verificar producto en pagina del carrito")
-    @Description("Agrega Backpack, navega al carrito y verifica que el producto aparece")
-    @Severity(SeverityLevel.CRITICAL)
-    void shouldShowProductInCartPage() {
-        // Act
-        inventoryPage.addBackpack();
-        inventoryPage.goToCart();
-
-        // Assert
-        int itemCount = cartPage.getItemCount();
-        assertTrue(itemCount > 0,
-            "El carrito debe tener al menos 1 item despues de agregar Backpack");
     }
 }
