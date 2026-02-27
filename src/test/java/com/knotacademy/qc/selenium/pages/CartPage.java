@@ -17,8 +17,14 @@ public class CartPage extends BasePage {
     }
 
     public int getItemsCount() {
-        // Esperar a que la pagina del carrito cargue antes de contar items
+        // Esperar a que la pagina del carrito cargue Y los items se rendericen
         visible(pageTitle);
+        try {
+            visible(cartItems);
+        } catch (org.openqa.selenium.TimeoutException e) {
+            // Si no hay items despues del timeout, retornar 0
+            return 0;
+        }
         return driver.findElements(cartItems).size();
     }
 

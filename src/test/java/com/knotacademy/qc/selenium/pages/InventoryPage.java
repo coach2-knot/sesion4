@@ -66,11 +66,11 @@ public class InventoryPage extends BasePage {
     }
 
     public void openCart() {
-        click(cartLink);
+        jsClick(cartLink);
     }
 
     /** Alias for openCart — uses business-friendly name */
     public void goToCart() {
-        click(cartLink);
+        jsClick(cartLink);
     }
 }
